@@ -1,16 +1,12 @@
 #!/usr/bin/env ruby
 
-def divisible_by_factors?(x, factors)
-  factors.all? {|f| x % f == 0 }
-end
-
 def prime_sieve(n)
   vs = (2..n).to_a
   primes = []
 
   while !vs.empty?
     primes << vs.shift
-    vs.reject! {|v| v % primes.last == 0 }
+    vs.reject! { |v| v % primes.last == 0 }
   end
 
   primes
@@ -36,7 +32,7 @@ def trial_division(n)
 end
 
 factors = (2..20).to_a
-pfs = factors.map {|x| trial_division(x) }
+pfs = factors.map { |x| trial_division(x) }
 unique_factors = pfs.flatten.uniq.sort
 
 factor_powers = {}
@@ -51,6 +47,6 @@ pfs.each do |pf|
   end
 end
 
-val = factor_powers.inject(1) {|acc, e| acc *= e.first ** e.last }
+val = factor_powers.inject(1) { |acc, e| acc *= e.first ** e.last }
 puts val
 
