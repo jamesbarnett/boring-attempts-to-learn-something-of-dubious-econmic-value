@@ -10,7 +10,6 @@ require "prime"
 
 n = 10_001
 limit = (n * Math.log(n) + n * (Math.log(Math.log(n)))).ceil
-puts "Limit: #{limit}"
 
 primes = []
 
