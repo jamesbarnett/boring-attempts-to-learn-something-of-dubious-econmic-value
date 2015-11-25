@@ -32,18 +32,18 @@ def trial_division(n)
 end
 
 factors = (2..20).to_a
-pfs = factors.map { |x| trial_division(x) }
-unique_factors = pfs.flatten.uniq.sort
+prime_factors = factors.map { |x| trial_division(x) }
+unique_factors = prime_factors.flatten.uniq.sort
 
 factor_powers = {}
 unique_factors.each do |f|
   factor_powers[f] = 0
 end
 
-pfs.each do |pf|
-  pf.each do |f|
-    count = pf.count(f)
-    factor_powers[f] = count if count > factor_powers[f]
+prime_factors.each do |element_prime_factors|
+  element_prime_factors.each do |factor|
+    count = element_prime_factors.count(factor)
+    factor_powers[factor] = count if count > factor_powers[factor]
   end
 end
 
