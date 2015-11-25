@@ -5,6 +5,7 @@
 #include "problem0004.hpp"
 #include "problem0005.hpp"
 #include "problem0006.hpp"
+#include "problem0007.hpp"
 
 using namespace std;
 
@@ -14,7 +15,8 @@ int main()
   // cout << "Problem 2: " << problem2() << endl;
   // cout << "Problem 4: " << problem4() << endl;
   // cout << "Problem 5: " << problem5() << endl;
-  cout << "Problem 6: " << problem6() << endl;
+  // cout << "Problem 6: " << problem6() << endl;
+  cout << "Problem 7: " << problem7() << endl;
 
   return 0;
 }

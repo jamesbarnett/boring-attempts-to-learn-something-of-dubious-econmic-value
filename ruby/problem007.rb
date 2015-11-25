@@ -1,9 +1,17 @@
 #!/usr/bin/env ruby
 
+# Problem:
+#
+# By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.
+#
+# What is the 10 001st prime number?
+#
 require "prime"
 
 n = 10_001
 limit = (n * Math.log(n) + n * (Math.log(Math.log(n)))).ceil
+puts "Limit: #{limit}"
+
 primes = []
 
 Prime.each(limit) do |p|
