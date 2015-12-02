@@ -18,6 +18,8 @@ elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
  endif()
 endif()
 
+find_package(Boost 1.58.0)
+include_directories(${Boost_INCLUDE_DIR})
 add_executable(euler src/main.cpp)
 
 install(TARGETS euler RUNTIME DESTINATION ${BIN_DIR})
