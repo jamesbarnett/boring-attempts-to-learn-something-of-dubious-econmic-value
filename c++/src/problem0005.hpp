@@ -44,7 +44,7 @@ long problem5()
   for_each(unique_factors.begin(), unique_factors.end(),
     [&](long x)
     {
-      for(auto element_prime_factors : prime_factors)
+      for (auto element_prime_factors : prime_factors)
       {
         auto factor_exponent = count(element_prime_factors.begin(), element_prime_factors.end(), x);
 
