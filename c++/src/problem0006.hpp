@@ -10,8 +10,6 @@ long problem6()
 {
   vector<long> values(100);
   iota(values.begin(), values.end(), 1L);
-  cout << "Values: ";
-  copy(values.begin(), values.end(), ostream_iterator<long>(cout, ", "));
 
   long sum_of_squares = accumulate(values.begin(), values.end(), 0L,
     [](long total, long value) { return total += pow(value, 2L); });
