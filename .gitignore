@@ -5,3 +5,4 @@ c++/CMakeFiles
 c++/CMakeCache.txt
 c++/Makefile
 c++/cmake_install.cmake
+dlang/dlang # TODO: research this last, but it's annoying me now
