@@ -3,19 +3,19 @@
 require "prime"
 
 def triangle n
-  (0..n).inject {|x, y| x + y }
+  (0..n).reduce { |x, y| x + y }
 end
 
 def factors n
   primes, powers = n.prime_division.transpose
-  exponents = powers.map {|i| (0..i).to_a }
+  exponents = powers.map { |i| (0..i).to_a }
   divisors = exponents.shift.product(*exponents).map do |ps|
     primes.zip(ps).map { |prime, power|
       prime ** power
-    }.inject(:*)
+    }.reduce(:*)
   end
 
-  divisors.sort.map {|div| [div, n / div] }.uniq.sort
+  divisors.sort.map { |div| [div, n / div] }.uniq.sort
 end
 
 i = 1000

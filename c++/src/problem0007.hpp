@@ -3,7 +3,6 @@
  *
  * What is the 10,001st prime number?
  */
-
 #include <iostream>
 #include <cmath>
 #include <iterator>

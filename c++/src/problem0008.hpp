@@ -71,7 +71,7 @@ long problem8()
   for (size_t i = 0; i < NUMBER.size() - PRODUCT_LENGTH; ++i)
   {
     long value = n_digit_product(NUMBER, i, PRODUCT_LENGTH);
-    if (value > max)  max = value;
+    if (value > max) max = value;
   }
 
   return max;

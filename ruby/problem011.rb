@@ -30,7 +30,7 @@ def element grid, col, row
 end
 
 def move grid, col, row, vector
-  (0..3).map {|c| [c * vector.first, c * vector.last] }.inject(1) do |acc, val|
+  (0..3).map { |c| [c * vector.first, c * vector.last] }.reduce(1) do |acc, val|
     acc * element(grid, col + val.first, row + val.last)
   end
 end
@@ -52,9 +52,9 @@ grid = data.lines.map do |line|
   end.flatten
 end
 
-directions = [-1, 0, 1].repeated_combination(2).to_a.reject {|x| x == [0, 0] }
+directions = [-1, 0, 1].repeated_combination(2).to_a.reject { |x| x == [0, 0] }
 
-vals = directions.inject({}) do |acc, direction|
+vals = directions.reduce({}) do |acc, direction|
   x_range, y_range = region direction
   acc[direction] ||= {}
 
@@ -70,8 +70,9 @@ end
 max_product = 0
 max_direction = nil
 max_origin = nil
+
 vals.each do |d, v|
-  entry = v.max {|x, y| x.last <=> y.last }
+  entry = v.max { |x, y| x.last <=> y.last }
 
   if entry.last > max_product
     max_product = entry.last

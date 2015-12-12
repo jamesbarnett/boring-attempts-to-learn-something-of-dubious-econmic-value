@@ -29,6 +29,7 @@
 #include <algorithm>
 #include <vector>
 #include <iterator>
+#include <numeric>
 #include <boost/algorithm/string.hpp>
 
 using namespace std;
@@ -63,40 +64,86 @@ vector<vector<int>> create_grid()
 
   split(rows, DATA, [](char c) { return c == '\n'; }, token_compress_on);
 
-  cout << "Rows:" << endl;
-  copy(rows.begin(), rows.end(), ostream_iterator<string>(cout, "\n"));
-
   vector<string> row_elements;
 
   for (auto row : rows)
   {
-    // extract elements from each row
+    vector<int> new_row;
     split(row_elements, row, [](char c) { return c == ' '; }, token_compress_on);
-
-    // convert row_elements to vector<int>
-
-    for (auto x : row_elements)
-    {
-      grid.push_back(vector<int>());
-      grid.back().push_back(stoi(x));
-    }
-  }
-
-  for (auto row : grid)
-  {
-    for (auto x : row)
-    {
-      cout << x << endl;
-    }
+    transform(row_elements.begin(), row_elements.end(), back_inserter(new_row), [](string s) { return stoi(s); });
+    grid.push_back(new_row);
   }
 
   return grid;
 }
 
+pair<pair<int, int>, pair<int, int>> range_constraints(const pair<int, int>& direction,
+  const int width, const int height)
+{
+  vector<int> scaled = { direction.first * 3, direction.second * 3 };
+
+  int left = scaled.front() > 0 ? 0 : abs(scaled.front());
+  int right = scaled.front() > 0 ? width - abs(scaled.front()) : width - 1;
+  int top = scaled.back() > 0 ? 0 : abs(scaled.front());
+  int bottom = scaled.back() > 0 ? height - abs(scaled.back()) : height - 1;
+
+  return make_pair(make_pair(left, right), make_pair(top, bottom));
+}
+
+int move(const vector<vector<int>>& grid, const int row, const int col,
+  const pair<int, int>& direction)
+{
+  vector<int> values(4);
+  iota(values.begin(), values.end(), 0);
+  vector<pair<int, int>> scaled(4);
+
+  transform(values.begin(), values.end(), scaled.begin(),
+    [=](int v) { return make_pair(v * direction.first, v * direction.second); });
+
+  return accumulate(scaled.begin(), scaled.end(), 1,
+    [=](int x, pair<int, int> p) { return x * grid[col + p.first][row + p.second]; });
+}
+
 int problem11()
 {
-  create_grid();
+  auto grid = create_grid();
+  vector<pair<int, int>> directions = {
+    make_pair(1, 0),
+    make_pair(-1, 0),
+    make_pair(0, 1),
+    make_pair(0, -1),
+    make_pair(1, 1),
+    make_pair(-1, 1),
+    make_pair(1, -1),
+    make_pair(-1, -1)
+  };
 
-  return 0;
+  int max = 0;
+
+  for (auto direction : directions)
+  {
+    pair<pair<int, int>, pair<int, int>> range_limit = range_constraints(direction, grid.size(), grid[0].size());
+
+    vector<int> x_range(range_limit.first.second - range_limit.first.first);
+    vector<int> y_range(range_limit.second.second - range_limit.second.first);
+
+    iota(x_range.begin(), x_range.end(), range_limit.first.first);
+    iota(y_range.begin(), y_range.end(), range_limit.second.first);
+
+    for (auto col : x_range)
+    {
+      for (auto row : y_range)
+      {
+        auto product = move(grid, row, col, direction);
+
+        if (product > max)
+        {
+          max = product;
+        }
+      }
+    }
+  }
+
+  return max;
 }
 
