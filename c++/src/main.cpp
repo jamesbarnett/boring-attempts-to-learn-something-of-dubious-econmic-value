@@ -12,6 +12,8 @@
 #include "problem0011.hpp"
 // #include "problem0012.hpp"
 #include "problem0013.hpp"
+#include "problem0013a.hpp"
+#include "problem0014.hpp"
 
 using namespace std;
 
@@ -28,7 +30,9 @@ int main()
   // cout << "Problem 10: " << problem10() << endl;
   // cout << "Problem 11: " << problem11() << endl;
   // cout << "Problem 12: " << problem12() << endl;
-  cout << "Problem 13: " << problem13() << endl;
+  // cout << "Problem 13: " << problem13() << endl;
+  // cout << problem13a() << endl;
+  cout << "Problem 14: " << problem14() << endl;
 
   return 0;
 }
